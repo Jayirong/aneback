@@ -16,7 +16,9 @@ public class SecurityConfig {
             //desactivamos el csrf por pruebas
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/**").permitAll()
+                .requestMatchers("/api/alertas/**").permitAll()
+                .requestMatchers("/api/estadoVitales/**").permitAll()
+                .requestMatchers("/api/pacientes/**").permitAll()
                 .anyRequest().authenticated());
             return http.build();
     }
