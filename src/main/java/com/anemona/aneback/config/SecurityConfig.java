@@ -18,7 +18,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/alertas/**").permitAll()
                 .requestMatchers("/api/estadoVitales/**").permitAll()
-                .requestMatchers("/api/pacientes/**").permitAll()
+                .requestMatchers("/api/paciente/**").permitAll()
                 .anyRequest().authenticated());
             return http.build();
     }
