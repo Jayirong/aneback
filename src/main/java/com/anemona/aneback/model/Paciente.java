@@ -37,9 +37,16 @@ public class Paciente {
     private String rut_paciente;
 
     @Column(nullable = false)
+    private int edad_paciente;
+
+    @Column(nullable = false)
     private String telefono_paciente;
 
     @JsonManagedReference
     @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Reporte> reportes = new ArrayList<>();
+    private List<Alerta> alertas = new ArrayList<>();
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<EstadoVital> estadosVitales = new ArrayList<>();
 }

@@ -44,6 +44,7 @@ public class PacienteServiceImpl implements PacienteService{
         paciente.setNombre_paciente(updatedPaciente.getNombre_paciente());
         paciente.setApellido_paciente(updatedPaciente.getApellido_paciente());
         paciente.setRut_paciente(updatedPaciente.getRut_paciente());
+        paciente.setEdad_paciente(updatedPaciente.getEdad_paciente());
         paciente.setTelefono_paciente(updatedPaciente.getTelefono_paciente());
 
         return pacienteRepository.save(paciente);
