@@ -1,17 +1,13 @@
 C:\Users\gabri\Escritorio\projects\Cloud\Anemona\aneback\src\main\java\com\anemona\aneback\AnebackApplication.java
-C:\Users\gabri\Escritorio\projects\Cloud\Anemona\aneback\src\main\java\com\anemona\aneback\config\RabbtiMQConfig.java
 C:\Users\gabri\Escritorio\projects\Cloud\Anemona\aneback\src\main\java\com\anemona\aneback\config\SecurityConfig.java
-C:\Users\gabri\Escritorio\projects\Cloud\Anemona\aneback\src\main\java\com\anemona\aneback\consumer\RabbitMQConsumer.java
 C:\Users\gabri\Escritorio\projects\Cloud\Anemona\aneback\src\main\java\com\anemona\aneback\controller\AlertaController.java
 C:\Users\gabri\Escritorio\projects\Cloud\Anemona\aneback\src\main\java\com\anemona\aneback\controller\EstadoVitalController.java
 C:\Users\gabri\Escritorio\projects\Cloud\Anemona\aneback\src\main\java\com\anemona\aneback\controller\PacienteController.java
-C:\Users\gabri\Escritorio\projects\Cloud\Anemona\aneback\src\main\java\com\anemona\aneback\controller\RabbitMQController.java
 C:\Users\gabri\Escritorio\projects\Cloud\Anemona\aneback\src\main\java\com\anemona\aneback\dto\AlertaDTO.java
 C:\Users\gabri\Escritorio\projects\Cloud\Anemona\aneback\src\main\java\com\anemona\aneback\dto\EstadoVitalDTO.java
 C:\Users\gabri\Escritorio\projects\Cloud\Anemona\aneback\src\main\java\com\anemona\aneback\model\Alerta.java
 C:\Users\gabri\Escritorio\projects\Cloud\Anemona\aneback\src\main\java\com\anemona\aneback\model\EstadoVital.java
 C:\Users\gabri\Escritorio\projects\Cloud\Anemona\aneback\src\main\java\com\anemona\aneback\model\Paciente.java
-C:\Users\gabri\Escritorio\projects\Cloud\Anemona\aneback\src\main\java\com\anemona\aneback\producer\RabbitMQProducer.java
 C:\Users\gabri\Escritorio\projects\Cloud\Anemona\aneback\src\main\java\com\anemona\aneback\repository\AlertaRepository.java
 C:\Users\gabri\Escritorio\projects\Cloud\Anemona\aneback\src\main\java\com\anemona\aneback\repository\EstadoVitalRepository.java
 C:\Users\gabri\Escritorio\projects\Cloud\Anemona\aneback\src\main\java\com\anemona\aneback\repository\PacienteRepository.java

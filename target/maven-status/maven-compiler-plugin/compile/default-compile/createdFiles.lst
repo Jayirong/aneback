@@ -1,4 +1,3 @@
-com\anemona\aneback\consumer\RabbitMQConsumer.class
 com\anemona\aneback\model\Paciente.class
 com\anemona\aneback\model\EstadoVital.class
 com\anemona\aneback\repository\AlertaRepository.class
@@ -7,16 +6,13 @@ com\anemona\aneback\service\AlertaServiceImpl.class
 com\anemona\aneback\model\Alerta.class
 com\anemona\aneback\dto\EstadoVitalDTO.class
 com\anemona\aneback\dto\AlertaDTO.class
-com\anemona\aneback\controller\RabbitMQController.class
 com\anemona\aneback\service\AlertaService.class
 com\anemona\aneback\service\EstadoVitalServiceImpl.class
 com\anemona\aneback\controller\PacienteController.class
 com\anemona\aneback\controller\EstadoVitalController.class
 com\anemona\aneback\service\PacienteService.class
 com\anemona\aneback\service\PacienteServiceImpl.class
-com\anemona\aneback\producer\RabbitMQProducer.class
 com\anemona\aneback\config\SecurityConfig.class
-com\anemona\aneback\config\RabbtiMQConfig.class
 com\anemona\aneback\service\EstadoVitalService.class
 com\anemona\aneback\controller\AlertaController.class
 com\anemona\aneback\repository\EstadoVitalRepository.class
