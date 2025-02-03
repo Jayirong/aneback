@@ -19,6 +19,7 @@ public class SecurityConfig {
                 .requestMatchers("/api/alertas/**").permitAll()
                 .requestMatchers("/api/estadoVitales/**").permitAll()
                 .requestMatchers("/api/paciente/**").permitAll()
+                .requestMatchers("/api/parametros-vitales/**").permitAll()
                 .anyRequest().authenticated());
             return http.build();
     }

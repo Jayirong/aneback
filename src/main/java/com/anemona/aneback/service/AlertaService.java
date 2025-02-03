@@ -14,6 +14,10 @@ public interface AlertaService {
     AlertaDTO updateAlertaById(Long alertaId, Alerta alerta);
     void deleteAllAlertas();
     void deleteAlertaById(Long id);
-
+    //extra
+    AlertaDTO marcarComoVista(Long alertaId);
+    AlertaDTO marcarComoNoVista(Long alertaId);
+    List<AlertaDTO> getAlertasNoVistas();
+    List<AlertaDTO> getAlertasNoVistasByPacienteId(Long pacienteId);
 
 }

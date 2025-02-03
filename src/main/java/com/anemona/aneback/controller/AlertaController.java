@@ -21,8 +21,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 
 
-
-
 @RestController
 @RequestMapping("api/alertas")
 public class AlertaController {
@@ -95,5 +93,44 @@ public class AlertaController {
             return new ResponseEntity<>(Map.of("error", e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    //extra
+    @PutMapping("/{alertaId}/marcar-vista")
+    public ResponseEntity<?> marcarAlertaComoVIsta(@PathVariable Long alertaId) {
+        try {
+            AlertaDTO alertaDTO = alertaService.marcarComoVista(alertaId);
+            return new ResponseEntity<>(alertaDTO, HttpStatus.OK);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(Map.of("error", e.getMessage()), HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PutMapping("/{alertaId}/marcar-no-vista")
+    public ResponseEntity<?> marcarAlertaComoNoVista(@PathVariable Long alertaId) {
+        try {
+            AlertaDTO alertaDTO = alertaService.marcarComoNoVista(alertaId);
+            return new ResponseEntity<>(alertaDTO, HttpStatus.OK);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(Map.of("error", e.getMessage()), HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/no-vistas")
+    public ResponseEntity<List<AlertaDTO>> getAlertasNoVistas() {
+        List<AlertaDTO> alertas = alertaService.getAlertasNoVistas();
+        return new ResponseEntity<>(alertas, HttpStatus.OK);
+    }
+
+    @GetMapping("/paciente/{pacienteId}/no-vistas")
+    public ResponseEntity<?> getAlertasNoVistasByPaciente(@PathVariable Long pacienteId) {
+        try {
+            List<AlertaDTO> alertas = alertaService.getAlertasNoVistasByPacienteId(pacienteId);
+            return new ResponseEntity<>(alertas, HttpStatus.OK);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(Map.of("error", e.getMessage()), HttpStatus.NOT_FOUND);
+        }
+    }
+    
+    
 
 }

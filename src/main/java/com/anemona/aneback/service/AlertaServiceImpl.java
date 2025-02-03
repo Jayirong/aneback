@@ -9,9 +9,11 @@ import org.springframework.stereotype.Service;
 
 import com.anemona.aneback.dto.AlertaDTO;
 import com.anemona.aneback.model.Alerta;
+import com.anemona.aneback.model.EstadoVital;
 import com.anemona.aneback.model.Paciente;
 import com.anemona.aneback.repository.AlertaRepository;
 import com.anemona.aneback.repository.PacienteRepository;
+import com.anemona.aneback.repository.EstadoVitalRepository;
 
 @Service
 public class AlertaServiceImpl implements AlertaService{
@@ -22,6 +24,9 @@ public class AlertaServiceImpl implements AlertaService{
     @Autowired
     private PacienteRepository pacienteRepository;
 
+    @Autowired
+    private EstadoVitalRepository estadoVitalRepository;
+
     //alerta -> alertaDTO
     private AlertaDTO convertToDTO(Alerta alerta) {
         AlertaDTO dto = new AlertaDTO();
@@ -31,6 +36,10 @@ public class AlertaServiceImpl implements AlertaService{
         dto.setFecha_alerta(alerta.getFecha_alerta().toLocalDate());
         dto.setHora_alerta(alerta.getFecha_alerta().toLocalTime());
         dto.setId_paciente(alerta.getPaciente().getId_paciente());
+        //extra
+        dto.setVisto(alerta.isVisto());
+        dto.setId_estado_vital(alerta.getEstadoVital().getId_estado());
+        dto.setParametro_alterado(alerta.getParametro_alterado());
         return dto;
     }
 
@@ -40,8 +49,15 @@ public class AlertaServiceImpl implements AlertaService{
         if (pacienteOptional.isEmpty()) {
             throw new RuntimeException("Paciente no encontrado");
         }
+        //Verificar y asignar el estado vital
+        EstadoVital estadoVital = estadoVitalRepository.findById(alerta.getEstadoVital().getId_estado())
+            .orElseThrow(() -> new RuntimeException("Estado vital no encontrado"));
+
         Paciente paciente = pacienteOptional.get();
         alerta.setPaciente(paciente);
+        alerta.setEstadoVital(estadoVital);
+        alerta.setVisto(false);
+
         Alerta savedAlerta = alertaRepository.save(alerta);
         return convertToDTO(savedAlerta);
     }
@@ -50,8 +66,19 @@ public class AlertaServiceImpl implements AlertaService{
     public AlertaDTO updateAlertaById(Long alertaId, Alerta updatedAlerta) {
         Alerta alerta = alertaRepository.findById(alertaId)
                 .orElseThrow(() -> new RuntimeException("Alerta no encontrada con Id:" + alertaId));
+
+
         alerta.setDescripcion_alerta(updatedAlerta.getDescripcion_alerta());
         alerta.setNivel_alerta(updatedAlerta.getNivel_alerta());
+        alerta.setVisto(updatedAlerta.isVisto());
+        alerta.setParametro_alterado(updatedAlerta.getParametro_alterado());
+
+        //solo se actualiza el estado vital si se proporciona uno nuevo
+        if (updatedAlerta.getEstadoVital() != null && updatedAlerta.getEstadoVital().getId_estado() != null) {
+            EstadoVital estadoVital = estadoVitalRepository.findById(updatedAlerta.getEstadoVital().getId_estado())
+                .orElseThrow(() -> new RuntimeException("Estado vital no encontrado"));
+            alerta.setEstadoVital(estadoVital);
+        }
 
         Alerta savedAlerta = alertaRepository.save(alerta);
         return convertToDTO(savedAlerta);
@@ -94,6 +121,37 @@ public class AlertaServiceImpl implements AlertaService{
         } else { 
             throw new RuntimeException("Alerta no encontrada con id: " + alertaId);
         }
+    }
+
+    //extra
+    @Override
+    public AlertaDTO marcarComoVista(Long alertaId) {
+        Alerta alerta = alertaRepository.findById(alertaId)
+            .orElseThrow(() -> new RuntimeException("Alerta no encontrada con Id: " + alertaId));
+        alerta.setVisto(true);
+        return convertToDTO(alertaRepository.save(alerta));
+    }
+
+    @Override
+    public AlertaDTO marcarComoNoVista(Long alertaId) {
+        Alerta alerta = alertaRepository.findById(alertaId)
+            .orElseThrow(() -> new RuntimeException("Alerta no encontrada con Id: " + alertaId));
+        alerta.setVisto(false);
+        return convertToDTO(alertaRepository.save(alerta));
+    }
+
+    @Override
+    public List<AlertaDTO> getAlertasNoVistas() {
+        return alertaRepository.findByVistoFalse().stream()
+            .map(this::convertToDTO)
+            .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<AlertaDTO> getAlertasNoVistasByPacienteId(Long pacienteId) {
+        return alertaRepository.findByPacienteIdAndVistoFalse(pacienteId).stream()
+            .map(this::convertToDTO)
+            .collect(Collectors.toList());
     }
 
 }

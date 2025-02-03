@@ -51,4 +51,16 @@ public class Alerta {
         this.fecha_alerta = LocalDateTime.now();
     }
 
+    //campos extra
+    @Column(nullable = false)
+    private boolean visto = false; //false por defecto
+
+    //referencia al estado vital que gatille la alerta
+    @ManyToOne
+    @JoinColumn(name = "id_estado", nullable = false)
+    private EstadoVital estadoVital;
+
+    @Column(nullable = false)
+    private String parametro_alterado;
+
 }

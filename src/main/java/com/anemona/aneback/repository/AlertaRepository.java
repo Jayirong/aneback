@@ -13,4 +13,10 @@ import com.anemona.aneback.model.Alerta;
 public interface AlertaRepository extends JpaRepository<Alerta, Long>{
     @Query("SELECT a FROM Alerta a WHERE a.paciente.id_paciente = :idPaciente")
     List<Alerta> findByPacienteId(@Param("idPaciente") Long idPaciente);
+    //extra
+    @Query("SELECT a FROM Alerta a WHERE a.visto = false")
+    List<Alerta> findByVistoFalse();
+
+    @Query("SELECT a FROM Alerta a WHERE a.paciente.id_paciente = :idPaciente AND a.visto = false")
+    List<Alerta> findByPacienteIdAndVistoFalse(@Param("idPaciente") Long pacienteId);
 }
