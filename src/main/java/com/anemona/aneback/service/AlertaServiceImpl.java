@@ -1,5 +1,6 @@
 package com.anemona.aneback.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -150,6 +151,14 @@ public class AlertaServiceImpl implements AlertaService{
     @Override
     public List<AlertaDTO> getAlertasNoVistasByPacienteId(Long pacienteId) {
         return alertaRepository.findByPacienteIdAndVistoFalse(pacienteId).stream()
+            .map(this::convertToDTO)
+            .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<AlertaDTO> getAlertasByRangoFecha(LocalDateTime fechaInicio, LocalDateTime fechaFin) {
+        return alertaRepository.findAlertasByRangoFecha(fechaInicio, fechaFin)
+            .stream()
             .map(this::convertToDTO)
             .collect(Collectors.toList());
     }

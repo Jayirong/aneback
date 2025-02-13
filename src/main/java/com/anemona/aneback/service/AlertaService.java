@@ -1,5 +1,6 @@
 package com.anemona.aneback.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.anemona.aneback.dto.AlertaDTO;
@@ -19,5 +20,6 @@ public interface AlertaService {
     AlertaDTO marcarComoNoVista(Long alertaId);
     List<AlertaDTO> getAlertasNoVistas();
     List<AlertaDTO> getAlertasNoVistasByPacienteId(Long pacienteId);
+    List<AlertaDTO> getAlertasByRangoFecha(LocalDateTime fechaInicio, LocalDateTime fechaFin);
 
 }

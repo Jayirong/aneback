@@ -1,12 +1,15 @@
 package com.anemona.aneback.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.anemona.aneback.dto.AlertaDTO;
@@ -131,6 +134,19 @@ public class AlertaController {
         }
     }
     
-    
+    //Devolver un rango de fechas
+    //esta un poquito desordenao, pero se entiende un poco ajksjalk
+    @GetMapping("/rango")
+    public ResponseEntity<?> getAlertasByRango(
+        @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") LocalDateTime desde,
+        @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") LocalDateTime hasta) {
+        try {
+            List<AlertaDTO> alertas = alertaService.getAlertasByRangoFecha(desde, hasta);
+            return new ResponseEntity<>(alertas, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(Map.of("error", e.getMessage()), HttpStatus.BAD_REQUEST);
+        }
+    }
+        
 
 }
