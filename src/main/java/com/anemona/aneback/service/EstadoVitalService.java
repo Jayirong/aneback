@@ -1,5 +1,6 @@
 package com.anemona.aneback.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.anemona.aneback.dto.EstadoVitalDTO;
@@ -14,5 +15,6 @@ public interface EstadoVitalService {
     EstadoVitalDTO updateEstadoVitalById(Long estadiVitalId, EstadoVital estadoVital);
     void deleteAllEstadoVitales();
     void deleteEstadoVitalById(Long id);
+    List<EstadoVitalDTO> getEstadoVitalesByRangoFecha(LocalDateTime fechaInicio, LocalDateTime fechaFin);
 
 }

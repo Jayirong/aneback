@@ -1,5 +1,6 @@
 package com.anemona.aneback.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -97,6 +98,14 @@ public class EstadoVitalServiceImpl implements EstadoVitalService {
         } else {
             throw new RuntimeException("Estado vital no encontrado con id: " + estadoVitalId);
         }
+    }
+
+    @Override
+    public List<EstadoVitalDTO> getEstadoVitalesByRangoFecha(LocalDateTime fechaInicio, LocalDateTime fechaFin) {
+        return estadoVitalRepository.findEstadoVitalesByRangoFecha(fechaInicio, fechaFin)
+            .stream()
+            .map(this::convertToDTO)
+            .collect(Collectors.toList());
     }
 
 }

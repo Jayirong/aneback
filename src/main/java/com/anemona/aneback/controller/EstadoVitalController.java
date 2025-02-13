@@ -1,12 +1,15 @@
 package com.anemona.aneback.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.anemona.aneback.dto.EstadoVitalDTO;
@@ -96,7 +99,19 @@ public class EstadoVitalController {
         }
     }
     
-    
+    //endpoint para devolver estadosvitales en un rango de fecha y hora
+    @GetMapping("/rango")
+    public ResponseEntity<?> getEstadoVitalesByRango(
+        @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") LocalDateTime desde,
+        @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") LocalDateTime hasta
+    ) {
+        try {
+            List<EstadoVitalDTO> estadoVitales = estadoVitalService.getEstadoVitalesByRangoFecha(desde, hasta);
+            return new ResponseEntity<>(estadoVitales, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(Map.of("error", e.getMessage()), HttpStatus.BAD_REQUEST);
+        }
+    }
         
 
 }
