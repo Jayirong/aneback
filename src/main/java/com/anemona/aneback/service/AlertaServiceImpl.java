@@ -59,6 +59,14 @@ public class AlertaServiceImpl implements AlertaService{
         alerta.setEstadoVital(estadoVital);
         alerta.setVisto(false);
 
+        if (alerta.getFecha_alerta() == null) {
+            alerta.setFecha_alerta(LocalDateTime.now());
+        }
+
+        if (alerta.getNivel_alerta() < 1 || alerta.getNivel_alerta() > 3) {
+            throw new IllegalArgumentException("El nivel de alerta debe estar entre 1 y 3, maldita basura!!");
+        }
+
         Alerta savedAlerta = alertaRepository.save(alerta);
         return convertToDTO(savedAlerta);
     }
@@ -112,6 +120,9 @@ public class AlertaServiceImpl implements AlertaService{
 
     @Override
     public void deleteAllAlertas() {
+        if (alertaRepository.count() == 0) {
+            throw new RuntimeException("NO HAY ALERTAS PARA ELIMINAR, BOBOOO!!!!");
+        }
         alertaRepository.deleteAll();
     }
 
